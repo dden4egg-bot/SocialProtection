@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="SocialProtection/SocialProtection.vcxproj" Id="dfed2f46-e3f7-4cfe-9177-958bf6a20d59" />
+</Solution>

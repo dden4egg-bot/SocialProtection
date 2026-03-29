@@ -25,44 +25,57 @@ bool DataManager::compareFamiliesByAllowance(const Family& a, const Family& b) {
 void DataManager::addDepartment(const std::string& postal, const std::string& specialist) {
     Department newDept(nextDeptId++, postal, specialist);
     departments.add(newDept);
-    std::cout << "Pidviddil dodano z ID: " << newDept.id << std::endl;
+    ConsoleUtils::kolor(10);
+    std::cout << "\nPidviddil dodano z ID: " << newDept.id << std::endl;
+    ConsoleUtils::skynutyKolor();
 }
 
 bool DataManager::removeDepartment(int id) {
-    for (int i = 0; i < families.size(); i++) {
+    // VYPAVLJAJEMO size_t V int
+    for (int i = 0; i < static_cast<int>(families.size()); i++) {
         if (families.get(i).departmentId == id) {
-            std::cout << "Nemozhlyvo vydalyty: v pidviddili ye sim'yi!" << std::endl;
+            ConsoleUtils::kolor(12);
+            std::cout << "\nNemozhlyvo vydalyty: v pidviddili ie sim'i!" << std::endl;
+            ConsoleUtils::skynutyKolor();
             return false;
         }
     }
 
-    for (int i = 0; i < departments.size(); i++) {
+    for (int i = 0; i < static_cast<int>(departments.size()); i++) {
         if (departments.get(i).id == id) {
             departments.remove(i);
-            std::cout << "Pidviddil vydaleno." << std::endl;
+            ConsoleUtils::kolor(10);
+            std::cout << "\nPidviddil vydaleno." << std::endl;
+            ConsoleUtils::skynutyKolor();
             return true;
         }
     }
 
-    std::cout << "Pidviddil z ID " << id << " ne znajdeno." << std::endl;
+    ConsoleUtils::kolor(12);
+    std::cout << "\nPidviddil z ID " << id << " ne znajdeno." << std::endl;
+    ConsoleUtils::skynutyKolor();
     return false;
 }
 
 bool DataManager::editDepartment(int id, const std::string& newPostal, const std::string& newSpecialist) {
-    for (int i = 0; i < departments.size(); i++) {
+    for (int i = 0; i < static_cast<int>(departments.size()); i++) {
         if (departments.get(i).id == id) {
             departments.get(i).postalIndex = newPostal;
             departments.get(i).specialistName = newSpecialist;
-            std::cout << "Pidviddil onovleno." << std::endl;
+            ConsoleUtils::kolor(10);
+            std::cout << "\nPidviddil onovleno." << std::endl;
+            ConsoleUtils::skynutyKolor();
             return true;
         }
     }
-    std::cout << "Pidviddil ne znajdeno." << std::endl;
+    ConsoleUtils::kolor(12);
+    std::cout << "\nPidviddil ne znajdeno." << std::endl;
+    ConsoleUtils::skynutyKolor();
     return false;
 }
 
 Department* DataManager::findDepartmentById(int id) {
-    for (int i = 0; i < departments.size(); i++) {
+    for (int i = 0; i < static_cast<int>(departments.size()); i++) {
         if (departments.get(i).id == id) {
             return &departments.get(i);
         }
@@ -72,17 +85,21 @@ Department* DataManager::findDepartmentById(int id) {
 
 void DataManager::printAllDepartments() const {
     if (departments.size() == 0) {
-        std::cout << "Spysok pidviddiliv porozhnij." << std::endl;
+        ConsoleUtils::kolor(14);
+        std::cout << "\nSpysok pidviddiliv porozhnij." << std::endl;
+        ConsoleUtils::skynutyKolor();
         return;
     }
 
+    ConsoleUtils::kolor(11);
     std::cout << "\n=== SPYSOK PIDVIDDILIV ===" << std::endl;
+    ConsoleUtils::skynutyKolor();
     std::cout << std::left << std::setw(5) << "ID"
         << std::setw(15) << "Posht. indeks"
         << "Fahivets" << std::endl;
     std::cout << std::string(50, '-') << std::endl;
 
-    for (int i = 0; i < departments.size(); i++) {
+    for (int i = 0; i < static_cast<int>(departments.size()); i++) {
         const auto& dept = departments.get(i);
         std::cout << std::left << std::setw(5) << dept.id
             << std::setw(15) << dept.postalIndex
@@ -93,45 +110,57 @@ void DataManager::printAllDepartments() const {
 void DataManager::addFamily(const std::string& name, const std::string& addr,
     int children, HelpCategory cat, int deptId) {
     if (findDepartmentById(deptId) == nullptr) {
-        std::cout << "Pomylka: pidviddil z ID " << deptId << " ne isnuye!" << std::endl;
+        ConsoleUtils::kolor(12);
+        std::cout << "\nPomylka: pidviddil z ID " << deptId << " ne isnuje!" << std::endl;
+        ConsoleUtils::skynutyKolor();
         return;
     }
 
     Family newFamily(nextFamilyId++, name, addr, children, cat, deptId);
     families.add(newFamily);
-    std::cout << "Sim'yu dodano z ID: " << newFamily.id << std::endl;
+    ConsoleUtils::kolor(10);
+    std::cout << "\nSim'ju dodano z ID: " << newFamily.id << std::endl;
     std::cout << "Rozrakhovana dopomoga: " << newFamily.monthlyAllowance << " grn" << std::endl;
+    ConsoleUtils::skynutyKolor();
 }
 
 bool DataManager::removeFamily(int id) {
-    for (int i = 0; i < families.size(); i++) {
+    for (int i = 0; i < static_cast<int>(families.size()); i++) {
         if (families.get(i).id == id) {
             families.remove(i);
-            std::cout << "Sim'yu vydaleno." << std::endl;
+            ConsoleUtils::kolor(10);
+            std::cout << "\nSim'ju vydaleno." << std::endl;
+            ConsoleUtils::skynutyKolor();
             return true;
         }
     }
-    std::cout << "Sim'yu z ID " << id << " ne znajdeno." << std::endl;
+    ConsoleUtils::kolor(12);
+    std::cout << "\nSim'ju z ID " << id << " ne znajdeno." << std::endl;
+    ConsoleUtils::skynutyKolor();
     return false;
 }
 
 bool DataManager::editFamily(int id, int newChildren, HelpCategory newCat) {
-    for (int i = 0; i < families.size(); i++) {
+    for (int i = 0; i < static_cast<int>(families.size()); i++) {
         if (families.get(i).id == id) {
             families.get(i).childrenCount = newChildren;
             families.get(i).category = newCat;
             families.get(i).calculateAllowance();
-            std::cout << "Sim'yu onovleno. Nova dopomoga: "
+            ConsoleUtils::kolor(10);
+            std::cout << "\nSim'ju onovleno. Nova dopomoga: "
                 << families.get(i).monthlyAllowance << " grn" << std::endl;
+            ConsoleUtils::skynutyKolor();
             return true;
         }
     }
-    std::cout << "Sim'yu ne znajdeno." << std::endl;
+    ConsoleUtils::kolor(12);
+    std::cout << "\nSim'ju ne znajdeno." << std::endl;
+    ConsoleUtils::skynutyKolor();
     return false;
 }
 
 Family* DataManager::findFamilyById(int id) {
-    for (int i = 0; i < families.size(); i++) {
+    for (int i = 0; i < static_cast<int>(families.size()); i++) {
         if (families.get(i).id == id) {
             return &families.get(i);
         }
@@ -142,29 +171,34 @@ Family* DataManager::findFamilyById(int id) {
 void DataManager::printFamiliesByDepartment(int deptId) const {
     Department* dept = const_cast<DataManager*>(this)->findDepartmentById(deptId);
     if (!dept) {
-        std::cout << "Pidviddil ne znajdeno." << std::endl;
+        ConsoleUtils::kolor(12);
+        std::cout << "\nPidviddil ne znajdeno." << std::endl;
+        ConsoleUtils::skynutyKolor();
         return;
     }
 
     bool found = false;
-    std::cout << "\n=== SIM'YI PIDVIDDILU №" << deptId
+    ConsoleUtils::kolor(11);
+    std::cout << "\n=== SIM'I PIDVIDDILU No" << deptId
         << " (Fahivets: " << dept->specialistName << ") ===" << std::endl;
+    ConsoleUtils::skynutyKolor();
+
     std::cout << std::left << std::setw(5) << "ID"
         << std::setw(15) << "Rodyna"
         << std::setw(20) << "Adresa"
-        << std::setw(8) << "Ditey"
-        << std::setw(15) << "Kategoriya"
+        << std::setw(8) << "Ditej"
+        << std::setw(15) << "Kategorija"
         << "Suma, grn" << std::endl;
     std::cout << std::string(80, '-') << std::endl;
 
-    for (int i = 0; i < families.size(); i++) {
+    for (int i = 0; i < static_cast<int>(families.size()); i++) {
         const auto& fam = families.get(i);
         if (fam.departmentId == deptId) {
             found = true;
             std::string categoryStr;
             switch (fam.category) {
             case BAGATODITNA: categoryStr = "Bagatoditna"; break;
-            case CHORNOBILSKA: categoryStr = "Chornobylska"; break;
+            case CHORNOBILSKA: categoryStr = "Chornobilska"; break;
             case INVALIDNIST: categoryStr = "Invalidnist"; break;
             case MALOZABEZPECHENA: categoryStr = "Malozabezpechena"; break;
             case ODYNOKA_MATY: categoryStr = "Odynoka maty"; break;
@@ -180,26 +214,33 @@ void DataManager::printFamiliesByDepartment(int deptId) const {
     }
 
     if (!found) {
-        std::cout << "V tsomu pidviddili nemaie zareiestrovanykh simey." << std::endl;
+        ConsoleUtils::kolor(14);
+        std::cout << "V c'omu pidviddili nemaje zarejestrovanykh sim'ej." << std::endl;
+        ConsoleUtils::skynutyKolor();
     }
 }
 
 void DataManager::printAllFamilies() const {
     if (families.size() == 0) {
-        std::cout << "Spysok simey porozhnij." << std::endl;
+        ConsoleUtils::kolor(14);
+        std::cout << "\nSpysok sim'ej porozhnij." << std::endl;
+        ConsoleUtils::skynutyKolor();
         return;
     }
 
-    std::cout << "\n=== VSI SIM'YI ===" << std::endl;
+    ConsoleUtils::kolor(11);
+    std::cout << "\n=== VSI SIM'I ===" << std::endl;
+    ConsoleUtils::skynutyKolor();
+
     std::cout << std::left << std::setw(5) << "ID"
         << std::setw(15) << "Rodyna"
         << std::setw(20) << "Adresa"
-        << std::setw(8) << "Ditey"
+        << std::setw(8) << "Ditej"
         << std::setw(5) << "Vid."
         << "Suma, grn" << std::endl;
     std::cout << std::string(60, '-') << std::endl;
 
-    for (int i = 0; i < families.size(); i++) {
+    for (int i = 0; i < static_cast<int>(families.size()); i++) {
         const auto& fam = families.get(i);
         std::cout << std::left << std::setw(5) << fam.id
             << std::setw(15) << fam.familyName
@@ -215,9 +256,11 @@ void DataManager::searchFamiliesByName(const std::string& name) const {
     std::string searchName = name;
     for (char& c : searchName) c = tolower(c);
 
+    ConsoleUtils::kolor(11);
     std::cout << "\n=== REZULTATY POSHUKU: \"" << name << "\" ===" << std::endl;
+    ConsoleUtils::skynutyKolor();
 
-    for (int i = 0; i < families.size(); i++) {
+    for (int i = 0; i < static_cast<int>(families.size()); i++) {
         const auto& fam = families.get(i);
         std::string famName = fam.familyName;
         for (char& c : famName) c = tolower(c);
@@ -227,69 +270,122 @@ void DataManager::searchFamiliesByName(const std::string& name) const {
             std::cout << "ID: " << fam.id
                 << ", Rodyna: " << fam.familyName
                 << ", Adresa: " << fam.address
-                << ", Ditey: " << fam.childrenCount
+                << ", Ditej: " << fam.childrenCount
                 << ", Dopomoga: " << fam.monthlyAllowance << " grn" << std::endl;
         }
     }
 
     if (!found) {
+        ConsoleUtils::kolor(14);
         std::cout << "Nichogo ne znajdeno." << std::endl;
+        ConsoleUtils::skynutyKolor();
     }
 }
 
 void DataManager::searchFamiliesByCategory(HelpCategory cat) const {
     bool found = false;
 
-    std::cout << "\n=== SIM'YI ZA KATEGORIYEYU ===" << std::endl;
+    ConsoleUtils::kolor(11);
+    std::cout << "\n=== SIM'I ZA KATEGORIJEJU ===" << std::endl;
+    ConsoleUtils::skynutyKolor();
 
-    for (int i = 0; i < families.size(); i++) {
+    for (int i = 0; i < static_cast<int>(families.size()); i++) {
         const auto& fam = families.get(i);
         if (fam.category == cat) {
             found = true;
             std::cout << "ID: " << fam.id
                 << ", Rodyna: " << fam.familyName
-                << ", Ditey: " << fam.childrenCount
+                << ", Ditej: " << fam.childrenCount
                 << ", Dopomoga: " << fam.monthlyAllowance << " grn" << std::endl;
         }
     }
 
     if (!found) {
-        std::cout << "Simey z tsiieiu katehoriiu ne znajdeno." << std::endl;
+        ConsoleUtils::kolor(14);
+        std::cout << "Sim'ej z cijeju kategorijeju ne znajdeno." << std::endl;
+        ConsoleUtils::skynutyKolor();
     }
 }
 
 void DataManager::sortFamiliesByName() {
     families.sort(compareFamiliesByName);
-    std::cout << "Sim'yi vidsortovano za prizvyshchem." << std::endl;
+    ConsoleUtils::kolor(10);
+    std::cout << "\nSim'i vidsortovano za prizvyshchem." << std::endl;
+    ConsoleUtils::skynutyKolor();
 }
 
 void DataManager::sortFamiliesByChildren() {
     families.sort(compareFamiliesByChildren);
-    std::cout << "Sim'yi vidsortovano za kilkistyu ditey (spadannya)." << std::endl;
+    ConsoleUtils::kolor(10);
+    std::cout << "\nSim'i vidsortovano za kilkistju ditej (spadannja)." << std::endl;
+    ConsoleUtils::skynutyKolor();
 }
 
 void DataManager::sortFamiliesByAllowance() {
     families.sort(compareFamiliesByAllowance);
-    std::cout << "Sim'yi vidsortovano za sumoyu dopomogy (spadannya)." << std::endl;
+    ConsoleUtils::kolor(10);
+    std::cout << "\nSim'i vidsortovano za sumoju dopomohy (spadannja)." << std::endl;
+    ConsoleUtils::skynutyKolor();
 }
 
 double DataManager::calculateTotalMonthlyAllowance() const {
     double total = 0.0;
-    for (int i = 0; i < families.size(); i++) {
+    for (int i = 0; i < static_cast<int>(families.size()); i++) {
         total += families.get(i).monthlyAllowance;
     }
     return total;
 }
 
+void DataManager::showStatistics() const {
+    ConsoleUtils::pustyjRiadok(1);
+    ConsoleUtils::drukuLiniyuCentr(50, '=');
+    ConsoleUtils::drukuCentr("STATYSTYKA SYSTEMY");
+    ConsoleUtils::drukuLiniyuCentr(50, '=');
+
+    std::cout << "\nZahal'na kil'kist' pidviddiliv: " << departments.size() << std::endl;
+    std::cout << "Zahal'na kil'kist' sim'ej: " << families.size() << std::endl;
+
+    double total = calculateTotalMonthlyAllowance();
+    std::cout << "Zahal'na suma vyplat: " << std::fixed << std::setprecision(2)
+        << total << " grn" << std::endl;
+
+    if (families.size() > 0) {
+        std::cout << "Serednja suma na sim'ju: " << (total / families.size()) << " grn" << std::endl;
+    }
+
+    // Rozpodil za katehorijamy
+    int bagatoditni = 0, chornobilci = 0, invalidy = 0, malozabezpecheni = 0, odynokiMamy = 0;
+    for (int i = 0; i < static_cast<int>(families.size()); i++) {
+        switch (families.get(i).category) {
+        case BAGATODITNA: bagatoditni++; break;
+        case CHORNOBILSKA: chornobilci++; break;
+        case INVALIDNIST: invalidy++; break;
+        case MALOZABEZPECHENA: malozabezpecheni++; break;
+        case ODYNOKA_MATY: odynokiMamy++; break;
+        }
+    }
+
+    ConsoleUtils::drukuLiniyuCentr(50, '-');
+    ConsoleUtils::drukuCentr("ROZPODIL ZA KATEGORIJAMY:");
+    std::cout << "  Bagatoditni sim'i: " << bagatoditni << std::endl;
+    std::cout << "  Chornobil'ci: " << chornobilci << std::endl;
+    std::cout << "  Invalidy: " << invalidy << std::endl;
+    std::cout << "  Malozabezpecheni: " << malozabezpecheni << std::endl;
+    std::cout << "  Odynoki maty: " << odynokiMamy << std::endl;
+    ConsoleUtils::drukuLiniyuCentr(50, '=');
+}
+
 bool DataManager::saveToFile(const std::string& filename) const {
     std::ofstream file(filename);
     if (!file.is_open()) {
-        std::cout << "Pomylka vidkryttia failu dlia zapysu!" << std::endl;
+        ConsoleUtils::kolor(12);
+        std::cout << "\nPomylka vidkryttja fajlu dlja zapisu!" << std::endl;
+        ConsoleUtils::skynutyKolor();
         return false;
     }
 
     file << departments.size() << std::endl;
-    for (int i = 0; i < departments.size(); i++) {
+    for (int i = 0; i < static_cast<int>(departments.size()); i++) {
         const auto& dept = departments.get(i);
         file << dept.id << std::endl;
         file << dept.postalIndex << std::endl;
@@ -297,7 +393,7 @@ bool DataManager::saveToFile(const std::string& filename) const {
     }
 
     file << families.size() << std::endl;
-    for (int i = 0; i < families.size(); i++) {
+    for (int i = 0; i < static_cast<int>(families.size()); i++) {
         const auto& fam = families.get(i);
         file << fam.id << std::endl;
         file << fam.familyName << std::endl;
@@ -312,14 +408,18 @@ bool DataManager::saveToFile(const std::string& filename) const {
     file << nextFamilyId << std::endl;
 
     file.close();
-    std::cout << "Dani uspishno zberezheno u fail " << filename << std::endl;
+    ConsoleUtils::kolor(10);
+    std::cout << "\nDani uspishno zberezheno u fajl " << filename << std::endl;
+    ConsoleUtils::skynutyKolor();
     return true;
 }
 
 bool DataManager::loadFromFile(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
-        std::cout << "Fail ne znajdeno. Bude stvoreno novyj." << std::endl;
+        ConsoleUtils::kolor(14);
+        std::cout << "\nFajl ne znajdeno. Bude stvoreno novyj pry pershomu zberezhenni." << std::endl;
+        ConsoleUtils::skynutyKolor();
         return false;
     }
 
@@ -363,6 +463,8 @@ bool DataManager::loadFromFile(const std::string& filename) {
     file >> nextFamilyId;
 
     file.close();
-    std::cout << "Dani uspishno zavantazheno z failu " << filename << std::endl;
+    ConsoleUtils::kolor(10);
+    std::cout << "\nDani uspishno zavantazheno z fajlu " << filename << std::endl;
+    ConsoleUtils::skynutyKolor();
     return true;
 }

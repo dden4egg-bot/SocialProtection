@@ -1,7 +1,12 @@
 #include "Menu.h"
 #include <iostream>
 #include <limits>
-#include <cstdlib>
+#include <iomanip>
+
+// VYPAVLJAJEMO KONFLIKT Z MAKROSOM MAX Z WINDOWS
+#ifdef max
+#undef max
+#endif
 
 void Menu::clearScreen() {
 #ifdef _WIN32
@@ -12,68 +17,130 @@ void Menu::clearScreen() {
 }
 
 void Menu::waitForKey() {
-    std::cout << "\nNatysnit Enter dlia prodovzhennia...";
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cout << "\nNajmit' Enter dlja prodovzhennja...";
+    // VYKORYSTOVUJEMO DODATKOVI DUZHKY DLJA OBMYNU MAKROSU MAX
+    std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
     std::cin.get();
 }
 
 void Menu::printMainMenu() {
     clearScreen();
-    std::cout << "===========================================" << std::endl;
-    std::cout << "    SOTSIALNYI ZAKHYST NASELENNIA" << std::endl;
-    std::cout << "===========================================" << std::endl;
-    std::cout << "1. Robota z pidviddilamy" << std::endl;
-    std::cout << "2. Robota z sim'iamy" << std::endl;
-    std::cout << "3. Formuvannia zvitiv" << std::endl;
-    std::cout << "4. Poshuk danykh" << std::endl;
-    std::cout << "5. Sortuvannia danykh" << std::endl;
-    std::cout << "6. Zberehty dani u fail" << std::endl;
-    std::cout << "7. Zavantazhyty dani z failu" << std::endl;
-    std::cout << "8. Vykhid" << std::endl;
-    std::cout << "===========================================" << std::endl;
-    std::cout << "Vash vybir: ";
+    int shyryna = ConsoleUtils::getShyryna();
+    int vidstup = ConsoleUtils::getVidstup(40);
+
+    ConsoleUtils::pustyjRiadok(2);
+    ConsoleUtils::kolor(14);
+    ConsoleUtils::drukuLiniyuCentr(50, '=');
+    ConsoleUtils::drukuCentr("SOTSIALNYJ ZAKHYST NASELENNJA");
+    ConsoleUtils::drukuCentr("Informacijna systema obliku sim'ej");
+    ConsoleUtils::drukuLiniyuCentr(50, '=');
+    ConsoleUtils::skynutyKolor();
+
+    ConsoleUtils::pustyjRiadok(1);
+    ConsoleUtils::kolor(15);
+
+    std::cout << std::setw(vidstup) << "" << "1. Robota z pidviddilamy" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "2. Robota z sim'jamy" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "3. Formuvannja zvitiv" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "4. Poshuk danykh" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "5. Sortuvannja danykh" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "6. Zberehty dani u fajl" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "7. Zavantazhyty dani z fajlu" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "8. Statystyka" << std::endl;
+
+    ConsoleUtils::kolor(12);
+    std::cout << std::setw(vidstup) << "" << "9. Vyjty z programy" << std::endl;
+    ConsoleUtils::skynutyKolor();
+
+    ConsoleUtils::pustyjRiadok(1);
+    ConsoleUtils::drukuLiniyuCentr(50, '=');
+    ConsoleUtils::drukuCentr("Vash vybir: ");
 }
 
 void Menu::printDepartmentMenu() {
     clearScreen();
-    std::cout << "=== ROBOTA Z PIDVIDDILAMY ===" << std::endl;
-    std::cout << "1. Dodaty pidviddil" << std::endl;
-    std::cout << "2. Vydalyty pidviddil" << std::endl;
-    std::cout << "3. Redahuvaty pidviddil" << std::endl;
-    std::cout << "4. Perehlyanuty vsi pidviddily" << std::endl;
-    std::cout << "5. Povernutysia do holovnoho meniu" << std::endl;
-    std::cout << "Vash vybir: ";
+    int vidstup = ConsoleUtils::getVidstup(35);
+
+    ConsoleUtils::pustyjRiadok(2);
+    ConsoleUtils::kolor(11);
+    ConsoleUtils::drukuLiniyuCentr(40, '=');
+    ConsoleUtils::drukuCentr("ROBOTA Z PIDVIDDILAMY");
+    ConsoleUtils::drukuLiniyuCentr(40, '=');
+    ConsoleUtils::skynutyKolor();
+    ConsoleUtils::pustyjRiadok(1);
+
+    std::cout << std::setw(vidstup) << "" << "1. Dodaty pidviddil" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "2. Vydalyty pidviddil" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "3. Redahuvaty pidviddil" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "4. Perehliadnuty vsi pidviddily" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "5. Povernutysja do holovnogo menu" << std::endl;
+
+    ConsoleUtils::pustyjRiadok(1);
+    ConsoleUtils::drukuCentr("Vash vybir: ");
 }
 
 void Menu::printFamilyMenu() {
     clearScreen();
-    std::cout << "=== ROBOTA Z SIM'IAMY ===" << std::endl;
-    std::cout << "1. Dodaty sim'iu" << std::endl;
-    std::cout << "2. Vydalyty sim'iu" << std::endl;
-    std::cout << "3. Redahuvaty sim'iu" << std::endl;
-    std::cout << "4. Perehlyanuty sim'i za pidviddilom" << std::endl;
-    std::cout << "5. Perehlyanuty vsi sim'i" << std::endl;
-    std::cout << "6. Povernutysia do holovnoho meniu" << std::endl;
-    std::cout << "Vash vybir: ";
+    int vidstup = ConsoleUtils::getVidstup(40);
+
+    ConsoleUtils::pustyjRiadok(2);
+    ConsoleUtils::kolor(11);
+    ConsoleUtils::drukuLiniyuCentr(40, '=');
+    ConsoleUtils::drukuCentr("ROBOTA Z SIM'JAMY");
+    ConsoleUtils::drukuLiniyuCentr(40, '=');
+    ConsoleUtils::skynutyKolor();
+    ConsoleUtils::pustyjRiadok(1);
+
+    std::cout << std::setw(vidstup) << "" << "1. Dodaty sim'ju" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "2. Vydalyty sim'ju" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "3. Redahuvaty sim'ju" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "4. Perehliadnuty sim'i za pidviddilom" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "5. Perehliadnuty vsi sim'i" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "6. Povernutysja do holovnogo menu" << std::endl;
+
+    ConsoleUtils::pustyjRiadok(1);
+    ConsoleUtils::drukuCentr("Vash vybir: ");
 }
 
 void Menu::printSearchMenu() {
     clearScreen();
-    std::cout << "=== POSHUK DANYKH ===" << std::endl;
-    std::cout << "1. Poshuk simey za prizvyshchem" << std::endl;
-    std::cout << "2. Poshuk simey za katehoriieiu" << std::endl;
-    std::cout << "3. Povernutysia do holovnoho meniu" << std::endl;
-    std::cout << "Vash vybir: ";
+    int vidstup = ConsoleUtils::getVidstup(40);
+
+    ConsoleUtils::pustyjRiadok(2);
+    ConsoleUtils::kolor(11);
+    ConsoleUtils::drukuLiniyuCentr(40, '=');
+    ConsoleUtils::drukuCentr("POSHUK DANYKH");
+    ConsoleUtils::drukuLiniyuCentr(40, '=');
+    ConsoleUtils::skynutyKolor();
+    ConsoleUtils::pustyjRiadok(1);
+
+    std::cout << std::setw(vidstup) << "" << "1. Poshuk sim'ei za prizvyshchem" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "2. Poshuk sim'ei za katehorijeju" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "3. Povernutysja do holovnogo menu" << std::endl;
+
+    ConsoleUtils::pustyjRiadok(1);
+    ConsoleUtils::drukuCentr("Vash vybir: ");
 }
 
 void Menu::printSortMenu() {
     clearScreen();
-    std::cout << "=== SORTUVANNIA DANYKH ===" << std::endl;
-    std::cout << "1. Sortuvaty sim'i za prizvyshchem" << std::endl;
-    std::cout << "2. Sortuvaty sim'i za kilkistiu ditey" << std::endl;
-    std::cout << "3. Sortuvaty sim'i za sumoiu dopomohy" << std::endl;
-    std::cout << "4. Povernutysia do holovnoho meniu" << std::endl;
-    std::cout << "Vash vybir: ";
+    int vidstup = ConsoleUtils::getVidstup(45);
+
+    ConsoleUtils::pustyjRiadok(2);
+    ConsoleUtils::kolor(11);
+    ConsoleUtils::drukuLiniyuCentr(40, '=');
+    ConsoleUtils::drukuCentr("SORTUVANNJA DANYKH");
+    ConsoleUtils::drukuLiniyuCentr(40, '=');
+    ConsoleUtils::skynutyKolor();
+    ConsoleUtils::pustyjRiadok(1);
+
+    std::cout << std::setw(vidstup) << "" << "1. Sortuvaty za prizvyshchem (A-Z)" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "2. Sortuvaty za kilkistju ditej (spadannja)" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "3. Sortuvaty za sumoju dopomohy (spadannja)" << std::endl;
+    std::cout << std::setw(vidstup) << "" << "4. Povernutysja do holovnogo menu" << std::endl;
+
+    ConsoleUtils::pustyjRiadok(1);
+    ConsoleUtils::drukuCentr("Vash vybir: ");
 }
 
 void Menu::handleDepartmentMenu() {
@@ -86,9 +153,9 @@ void Menu::handleDepartmentMenu() {
         switch (choice) {
         case 1: {
             std::string postal, specialist;
-            std::cout << "Vvedit poshtovyi indeks: ";
+            ConsoleUtils::drukuCentr("Vvedit' poshtovyj indeks: ");
             std::getline(std::cin, postal);
-            std::cout << "Vvedit PIB fakhivtsia: ";
+            ConsoleUtils::drukuCentr("Vvedit' PIB fahivtsja: ");
             std::getline(std::cin, specialist);
             manager.addDepartment(postal, specialist);
             waitForKey();
@@ -96,8 +163,9 @@ void Menu::handleDepartmentMenu() {
         }
         case 2: {
             int id;
-            std::cout << "Vvedit ID pidviddilu: ";
+            ConsoleUtils::drukuCentr("Vvedit' ID pidviddilu dlja vydalennja: ");
             std::cin >> id;
+            std::cin.ignore();
             manager.removeDepartment(id);
             waitForKey();
             break;
@@ -105,12 +173,12 @@ void Menu::handleDepartmentMenu() {
         case 3: {
             int id;
             std::string postal, specialist;
-            std::cout << "Vvedit ID pidviddilu: ";
+            ConsoleUtils::drukuCentr("Vvedit' ID pidviddilu dlja redahuvannja: ");
             std::cin >> id;
             std::cin.ignore();
-            std::cout << "Vvedit novyj poshtovyi indeks: ";
+            ConsoleUtils::drukuCentr("Vvedit' novyj poshtovyj indeks: ");
             std::getline(std::cin, postal);
-            std::cout << "Vvedit nove PIB fakhivtsia: ";
+            ConsoleUtils::drukuCentr("Vvedit' novoje PIB fahivtsja: ");
             std::getline(std::cin, specialist);
             manager.editDepartment(id, postal, specialist);
             waitForKey();
@@ -120,8 +188,6 @@ void Menu::handleDepartmentMenu() {
             manager.printAllDepartments();
             waitForKey();
             break;
-        case 5:
-            return;
         }
     } while (choice != 5);
 }
@@ -139,25 +205,23 @@ void Menu::handleFamilyMenu() {
             int children, cat, deptId;
 
             manager.printAllDepartments();
-            std::cout << "\nVvedit ID pidviddilu: ";
+            ConsoleUtils::drukuCentr("Vvedit' ID pidviddilu: ");
             std::cin >> deptId;
             std::cin.ignore();
 
-            std::cout << "Vvedit prizvyshche rodyny: ";
+            ConsoleUtils::drukuCentr("Vvedit' prizvyshche rodyny: ");
             std::getline(std::cin, name);
-            std::cout << "Vvedit adresu: ";
+            ConsoleUtils::drukuCentr("Vvedit' adresu: ");
             std::getline(std::cin, addr);
-            std::cout << "Vvedit kilkist ditey: ";
+            ConsoleUtils::drukuCentr("Vvedit' kilkist' ditej: ");
             std::cin >> children;
 
-            std::cout << "\nVyberit katehoriiu dopomohy:" << std::endl;
-            std::cout << "1. Bahatoditna" << std::endl;
-            std::cout << "2. Chornobylska" << std::endl;
-            std::cout << "3. Invalidnist" << std::endl;
-            std::cout << "4. Malozabezpechena" << std::endl;
-            std::cout << "5. Odynoka maty" << std::endl;
-            std::cout << "Vash vybir: ";
+            ConsoleUtils::drukuCentr("Vybirite katehoriju:");
+            ConsoleUtils::drukuCentr("1. Bagatoditna  2. Chornobilska  3. Invalidnist");
+            ConsoleUtils::drukuCentr("4. Malozabezpechena  5. Odynoka maty");
+            ConsoleUtils::drukuCentr("Vash vybir: ");
             std::cin >> cat;
+            std::cin.ignore();
 
             manager.addFamily(name, addr, children, static_cast<HelpCategory>(cat), deptId);
             waitForKey();
@@ -165,28 +229,32 @@ void Menu::handleFamilyMenu() {
         }
         case 2: {
             int id;
-            std::cout << "Vvedit ID sim'yi: ";
+            ConsoleUtils::drukuCentr("Vvedit' ID sim'i dlja vydalennja: ");
             std::cin >> id;
+            std::cin.ignore();
             manager.removeFamily(id);
             waitForKey();
             break;
         }
         case 3: {
             int id, children, cat;
-            std::cout << "Vvedit ID sim'yi: ";
+            ConsoleUtils::drukuCentr("Vvedit' ID sim'i dlja redahuvannja: ");
             std::cin >> id;
-            std::cout << "Vvedit novu kilkist ditey: ";
+            std::cin.ignore();
+            ConsoleUtils::drukuCentr("Vvedit' novu kilkist' ditej: ");
             std::cin >> children;
-            std::cout << "Vyberit novu katehoriiu (1-5): ";
+            ConsoleUtils::drukuCentr("Vybirite novu katehoriju (1-5): ");
             std::cin >> cat;
+            std::cin.ignore();
             manager.editFamily(id, children, static_cast<HelpCategory>(cat));
             waitForKey();
             break;
         }
         case 4: {
             int deptId;
-            std::cout << "Vvedit ID pidviddilu: ";
+            ConsoleUtils::drukuCentr("Vvedit' ID pidviddilu: ");
             std::cin >> deptId;
+            std::cin.ignore();
             manager.printFamiliesByDepartment(deptId);
             waitForKey();
             break;
@@ -195,8 +263,6 @@ void Menu::handleFamilyMenu() {
             manager.printAllFamilies();
             waitForKey();
             break;
-        case 6:
-            return;
         }
     } while (choice != 6);
 }
@@ -211,7 +277,7 @@ void Menu::handleSearchMenu() {
         switch (choice) {
         case 1: {
             std::string name;
-            std::cout << "Vvedit prizvyshche dlia poshuku: ";
+            ConsoleUtils::drukuCentr("Vvedit' prizvyshche dlja poshuku: ");
             std::getline(std::cin, name);
             manager.searchFamiliesByName(name);
             waitForKey();
@@ -219,14 +285,13 @@ void Menu::handleSearchMenu() {
         }
         case 2: {
             int cat;
-            std::cout << "Vyberit katehoriiu dlia poshuku (1-5): ";
+            ConsoleUtils::drukuCentr("Vybirite katehoriju (1-5): ");
             std::cin >> cat;
+            std::cin.ignore();
             manager.searchFamiliesByCategory(static_cast<HelpCategory>(cat));
             waitForKey();
             break;
         }
-        case 3:
-            return;
         }
     } while (choice != 3);
 }
@@ -254,33 +319,17 @@ void Menu::handleSortMenu() {
             manager.printAllFamilies();
             waitForKey();
             break;
-        case 4:
-            return;
         }
     } while (choice != 4);
 }
 
 void Menu::handleReports() {
-    clearScreen();
-    std::cout << "=== SHCHOMISIACHNYI ZVIT ===" << std::endl;
-    std::cout << "===========================================" << std::endl;
-
-    double total = manager.calculateTotalMonthlyAllowance();
-
-    std::cout << "Zahalna kilkist pidviddiliv: "
-        << manager.getDepartments().size() << std::endl;
-    std::cout << "Zahalna kilkist simey: "
-        << manager.getFamilies().size() << std::endl;
-    std::cout << "===========================================" << std::endl;
-    std::cout << "Zahalna suma dopomohy do vyplaty: "
-        << std::fixed << total << " grn." << std::endl;
-    std::cout << "===========================================" << std::endl;
-
+    manager.showStatistics();
     waitForKey();
 }
 
 void Menu::run() {
-    manager.loadFromFile("families.txt");
+    manager.loadFromFile("dani.txt");
 
     int choice;
     do {
@@ -305,19 +354,26 @@ void Menu::run() {
             handleSortMenu();
             break;
         case 6:
-            manager.saveToFile("families.txt");
+            manager.saveToFile("dani.txt");
             waitForKey();
             break;
         case 7:
-            manager.loadFromFile("families.txt");
+            manager.loadFromFile("dani.txt");
             waitForKey();
             break;
         case 8:
-            std::cout << "Diakuiemo za vykorystannia prohramy!" << std::endl;
+            handleReports();
+            break;
+        case 9:
+            ConsoleUtils::kolor(14);
+            ConsoleUtils::drukuCentr("Djakujemo za vykorystannja programy!");
+            ConsoleUtils::skynutyKolor();
             break;
         default:
-            std::cout << "Nevirnyi vybir. Sprobuiyte shche raz." << std::endl;
+            ConsoleUtils::kolor(12);
+            ConsoleUtils::drukuCentr("Nevіrnyj vybir! Sprobujte znovu.");
+            ConsoleUtils::skynutyKolor();
             waitForKey();
         }
-    } while (choice != 8);
+    } while (choice != 9);
 }

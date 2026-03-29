@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayTemplate.h" />
+    <ClInclude Include="ConsoleUtils.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="Department.h" />
     <ClInclude Include="Family.h" />

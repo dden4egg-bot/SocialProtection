@@ -26,6 +26,29 @@ public:
         data = new T[capacity];
     }
 
+    // Konstruktor kopijuvannja
+    ArrayTemplate(const ArrayTemplate& other)
+        : capacity(other.capacity), count(other.count) {
+        data = new T[capacity];
+        for (int i = 0; i < count; i++) {
+            data[i] = other.data[i];
+        }
+    }
+
+    // Operator prisvoiennja
+    ArrayTemplate& operator=(const ArrayTemplate& other) {
+        if (this != &other) {
+            delete[] data;
+            capacity = other.capacity;
+            count = other.count;
+            data = new T[capacity];
+            for (int i = 0; i < count; i++) {
+                data[i] = other.data[i];
+            }
+        }
+        return *this;
+    }
+
     ~ArrayTemplate() {
         delete[] data;
     }
@@ -39,7 +62,7 @@ public:
 
     void remove(int index) {
         if (index < 0 || index >= count) {
-            throw std::out_of_range("Index out of range");
+            throw std::out_of_range("Index poza mezhamy");
         }
         for (int i = index; i < count - 1; i++) {
             data[i] = data[i + 1];
@@ -49,14 +72,14 @@ public:
 
     T& get(int index) {
         if (index < 0 || index >= count) {
-            throw std::out_of_range("Index out of range");
+            throw std::out_of_range("Index poza mezhamy");
         }
         return data[index];
     }
 
     const T& get(int index) const {
         if (index < 0 || index >= count) {
-            throw std::out_of_range("Index out of range");
+            throw std::out_of_range("Index poza mezhamy");
         }
         return data[index];
     }
@@ -67,15 +90,6 @@ public:
 
     void clear() {
         count = 0;
-    }
-
-    int findIndex(bool (*criteria)(const T&)) const {
-        for (int i = 0; i < count; i++) {
-            if (criteria(data[i])) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     void sort(bool (*compare)(const T&, const T&)) {

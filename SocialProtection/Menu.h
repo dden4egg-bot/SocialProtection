@@ -2,10 +2,14 @@
 #define MENU_H
 
 #include "DataManager.h"
+#include "ConsoleUtils.h"
 
 class Menu {
 private:
     DataManager manager;
+
+    void clearScreen();
+    void waitForKey();
 
     void printMainMenu();
     void printDepartmentMenu();
@@ -18,9 +22,6 @@ private:
     void handleSearchMenu();
     void handleSortMenu();
     void handleReports();
-
-    void clearScreen();
-    void waitForKey();
 
 public:
     void run();

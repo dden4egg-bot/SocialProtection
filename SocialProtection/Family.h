@@ -12,12 +12,12 @@ enum HelpCategory {
 };
 
 const double CATEGORY_RATES[] = {
-    0.0,
-    2500.0,
-    3000.0,
-    3500.0,
-    2000.0,
-    2800.0
+    0.0,        // Zaglushka
+    2500.0,     // Bahatoditna
+    3000.0,     // Chornobilska
+    3500.0,     // Invalidnist
+    2000.0,     // Malozabezpechena
+    2800.0      // Odynoka maty
 };
 
 struct Family {
